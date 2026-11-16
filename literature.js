@@ -1,0 +1,21 @@
+import {escapeHtml as esc} from './utils.js';
+const $=id=>document.getElementById(id);
+let result=null;
+document.querySelectorAll('[data-literature]').forEach(b=>b.addEventListener('click',()=>{$('literature-query').value=b.dataset.literature;$('literature-form').requestSubmit();}));
+$('literature-form').addEventListener('submit',async e=>{
+ e.preventDefault();if($('literature-submit').disabled)return;
+ $('literature-submit').disabled=true;result=null;
+ $('literature-output').innerHTML='<div class="loading"><span class="spinner"></span>Searching PubMed and retrieving source abstracts…</div>';
+ try{
+  const configResponse=await fetch('/api/config');if(!configResponse.ok)throw Error('Local service unavailable.');const config=await configResponse.json();
+  const response=await fetch('/api/literature/search',{method:'POST',headers:{'Content-Type':'application/json','X-CareContext-Session':config.session},body:JSON.stringify({query:$('literature-query').value.trim(),study_type:$('literature-type').value,since:$('literature-since').value?Number($('literature-since').value):null})});
+  const data=await response.json();if(!response.ok)throw Error(typeof data.detail==='string'?data.detail:'Check your search terms and filters.');result=data;
+  $('literature-output').innerHTML=`<section class="research-results"><div class="section-title"><h2>${data.articles.length?'Sources to explore':'No matching papers'}</h2><span class="small muted">${Number(data.total_matches).toLocaleString()} matches · ${data.articles.length} shown</span></div><p class="small muted">${esc(data.boundary)}</p><details class="query-options"><summary>Search transparency</summary><p>Executed query: <code>${esc(data.executed_query)}</code></p><p>PubMed translation: ${esc(data.query_translation)}</p><p>Retrieved: ${esc(data.retrieved_at)}${data.cached?' · cached up to 10 minutes':''}</p></details>${data.articles.length?'<button class="text-button research-export" id="export-literature">Export citations ↓</button>':'<p>Try fewer keywords, a broader topic, or a different study-type filter. No sources were invented.</p>'}<div class="paper-list">${data.articles.map((p,i)=>`<article class="panel paper"><div class="paper-kicker"><span class="paper-index">${i+1}</span><span>${esc(p.journal)} · ${esc(p.year)}</span></div><h3><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.title)} ↗</a></h3><p class="small muted">${esc(p.authors.join(', '))} · PMID ${esc(p.pmid)}</p><div class="paper-tags">${p.study_types.map(t=>`<span class="pill gray">${esc(t)}</span>`).join('')}</div>${p.notices.length?`<div class="warning-box"><h3>Check linked publication notices</h3><p>${p.notices.map(n=>esc(n.type)).join(' · ')}. Consult PubMed before relying on this paper.</p></div>`:''}<details class="paper-abstract"><summary>${p.abstract.length?'Read the source abstract':'Abstract unavailable'}</summary>${p.abstract.length?p.abstract.map(a=>`<section><h4>${esc(a.label)}</h4><p>${esc(a.text)}</p></section>`).join(''):'<p>PubMed did not provide an abstract. Open the original record for available details.</p>'}</details><div class="paper-links"><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">PubMed record ↗</a>${p.doi_url?`<a href="${esc(p.doi_url)}" target="_blank" rel="noopener noreferrer">Publisher via DOI ↗</a>`:''}</div></article>`).join('')}</div></section>`;
+ }catch(err){$('literature-output').innerHTML=`<div class="alert error"><strong>Search could not complete</strong><br>${esc(err.message)}</div>`;}
+ finally{$('literature-submit').disabled=false;}
+});
+$('literature-output').addEventListener('click',e=>{
+ if(!e.target.closest('#export-literature')||!result)return;
+ const text=['# CareContext literature sources','',`Search: ${result.query}`,`Executed query: ${result.executed_query}`,`Retrieved: ${result.retrieved_at}`,'',result.boundary,'',...result.articles.map((p,i)=>`${i+1}. ${p.title}\n${p.authors.join(', ')}. ${p.journal}. ${p.year}. PMID: ${p.pmid}\n${p.url}\n${p.doi_url||''}\n`)].join('\n');
+ const url=URL.createObjectURL(new Blob([text],{type:'text/markdown'}));const a=document.createElement('a');a.href=url;a.download='carecontext-literature.md';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});

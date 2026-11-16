@@ -1,0 +1,11 @@
+{
+  "name": "carecontext-workspace",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 scripts/dev.py",
+    "test": "node --test tests/frontend.test.mjs",
+    "check": "node --check carecontext/web/app.js && node --check carecontext/web/utils.js && node --check carecontext/web/literature.js"
+  }
+}

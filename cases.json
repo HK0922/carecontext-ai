@@ -1,0 +1,461 @@
+{
+  "version": "1.0",
+  "synthetic": true,
+  "description": "Entirely fictional teaching records and author-written workflow references. Not clinical guidance.",
+  "patients": [
+    {
+      "id": "demo-001",
+      "name": "Maya Chen",
+      "initials": "MC",
+      "age": 62,
+      "label": "Wound clinic follow-up",
+      "focus": "Transport and supply coordination",
+      "updated": "2026-05-14",
+      "color": "sage",
+      "questions": [
+        "What is blocking Maya's follow-up?",
+        "What allergy information changed?",
+        "What is the recorded appointment date?",
+        "Is an HbA1c result available?"
+      ]
+    },
+    {
+      "id": "demo-002",
+      "name": "Oliver Brooks",
+      "initials": "OB",
+      "age": 48,
+      "label": "Referral coordination",
+      "focus": "Referral and contact reconciliation",
+      "updated": "2026-05-13",
+      "color": "sand",
+      "questions": [
+        "What is the referral status?",
+        "What contact attempts are documented?",
+        "What allergy is recorded?",
+        "What supply delivery is documented?"
+      ]
+    },
+    {
+      "id": "demo-003",
+      "name": "Amara Lewis",
+      "initials": "AL",
+      "age": 71,
+      "label": "Home visit coordination",
+      "focus": "Visit scheduling and record changes",
+      "updated": "2026-05-15",
+      "color": "lavender",
+      "questions": [
+        "When is the home appointment?",
+        "What measurements changed?",
+        "What medication is recorded?",
+        "What is blocking the visit?"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "id": "MC-01",
+      "patient_id": "demo-001",
+      "title": "Intake note",
+      "date": "2026-05-06",
+      "kind": "record",
+      "author": "Synthetic intake coordinator",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "Maya Chen is enrolled in the fictional wound-clinic follow-up pathway.",
+          "tags": [
+            "wound",
+            "intake"
+          ]
+        },
+        {
+          "text": "The intake allergy field lists no known drug allergies.",
+          "tags": [
+            "allergy",
+            "change"
+          ],
+          "field": "allergy",
+          "value": "none recorded"
+        },
+        {
+          "text": "The medication list records metformin; dose and frequency are not included in this sample.",
+          "tags": [
+            "medication"
+          ],
+          "field": "medication",
+          "value": "metformin"
+        },
+        {
+          "text": "The intake wound measurement is recorded as 2.4 cm by 1.8 cm.",
+          "tags": [
+            "wound",
+            "measurement"
+          ],
+          "field": "measurement",
+          "value": "2.4 x 1.8 cm"
+        }
+      ]
+    },
+    {
+      "id": "MC-02",
+      "patient_id": "demo-001",
+      "title": "Nursing follow-up",
+      "date": "2026-05-10",
+      "kind": "record",
+      "author": "Synthetic nursing note",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "The nursing allergy field lists a patient-reported penicillin allergy with rash; reconciliation remains open.",
+          "tags": [
+            "allergy",
+            "change",
+            "barrier"
+          ],
+          "field": "allergy",
+          "value": "penicillin rash"
+        },
+        {
+          "text": "The recorded wound measurement is 2.2 cm by 1.7 cm; no clinical interpretation is included.",
+          "tags": [
+            "wound",
+            "measurement",
+            "change"
+          ],
+          "field": "measurement",
+          "value": "2.2 x 1.7 cm"
+        },
+        {
+          "text": "The dressing supply request was sent to the fictional supplier on May 10.",
+          "tags": [
+            "dressing",
+            "supply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MC-03",
+      "patient_id": "demo-001",
+      "title": "Scheduling update",
+      "date": "2026-05-12",
+      "kind": "record",
+      "author": "Synthetic scheduling team",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "The follow-up appointment is booked for May 18, 2026 at 10:30 AM.",
+          "tags": [
+            "appointment"
+          ],
+          "field": "appointment",
+          "value": "2026-05-18 10:30"
+        },
+        {
+          "text": "Transport for the follow-up appointment has not been confirmed; the transport coordinator owns the callback.",
+          "tags": [
+            "transport",
+            "appointment",
+            "barrier"
+          ]
+        },
+        {
+          "text": "A contact attempt on May 12 reached voicemail; no return call is documented in this note.",
+          "tags": [
+            "contact",
+            "barrier"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MC-04",
+      "patient_id": "demo-001",
+      "title": "Coordination handoff",
+      "date": "2026-05-14",
+      "kind": "record",
+      "author": "Synthetic care coordinator",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "Transport confirmation remains pending and may prevent attendance at the follow-up appointment.",
+          "tags": [
+            "transport",
+            "barrier",
+            "appointment"
+          ]
+        },
+        {
+          "text": "The dressing supply delivery date is still unconfirmed; the care coordinator is awaiting a supplier reply.",
+          "tags": [
+            "dressing",
+            "supply",
+            "barrier"
+          ]
+        },
+        {
+          "text": "Allergy reconciliation is assigned to the clinical team and has not been marked complete.",
+          "tags": [
+            "allergy",
+            "barrier"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OB-01",
+      "patient_id": "demo-002",
+      "title": "Referral intake",
+      "date": "2026-05-04",
+      "kind": "record",
+      "author": "Synthetic referral coordinator",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "Oliver Brooks has a referral request for the fictional wound review clinic.",
+          "tags": [
+            "referral",
+            "wound"
+          ]
+        },
+        {
+          "text": "The referral packet is missing the referring clinician signature.",
+          "tags": [
+            "referral",
+            "barrier"
+          ]
+        },
+        {
+          "text": "The allergy list records latex sensitivity.",
+          "tags": [
+            "allergy"
+          ],
+          "field": "allergy",
+          "value": "latex sensitivity"
+        }
+      ]
+    },
+    {
+      "id": "OB-02",
+      "patient_id": "demo-002",
+      "title": "Telephone log",
+      "date": "2026-05-08",
+      "kind": "record",
+      "author": "Synthetic contact team",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "A contact call on May 8 confirmed the callback number in the demo record.",
+          "tags": [
+            "contact"
+          ]
+        },
+        {
+          "text": "The referring office was asked to send the signed referral; no signed copy is recorded in this log.",
+          "tags": [
+            "referral",
+            "barrier"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OB-03",
+      "patient_id": "demo-002",
+      "title": "Referral reconciliation",
+      "date": "2026-05-13",
+      "kind": "record",
+      "author": "Synthetic referral coordinator",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "The signed referral arrived on May 13 and the referral packet is now recorded as complete.",
+          "tags": [
+            "referral"
+          ],
+          "field": "referral",
+          "value": "complete"
+        },
+        {
+          "text": "An appointment slot has not yet been assigned; scheduling owns the next contact attempt.",
+          "tags": [
+            "appointment",
+            "contact",
+            "barrier"
+          ]
+        },
+        {
+          "text": "The record contains no completed supply-delivery confirmation.",
+          "tags": [
+            "supply",
+            "delivery"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AL-01",
+      "patient_id": "demo-003",
+      "title": "Home care intake",
+      "date": "2026-05-05",
+      "kind": "record",
+      "author": "Synthetic home care team",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "Amara Lewis is registered for a fictional home wound-review visit.",
+          "tags": [
+            "wound",
+            "appointment"
+          ]
+        },
+        {
+          "text": "The medication list records amlodipine; no dose or frequency is supplied in this sample.",
+          "tags": [
+            "medication"
+          ],
+          "field": "medication",
+          "value": "amlodipine"
+        },
+        {
+          "text": "The intake measurement is recorded as 3.0 cm by 2.1 cm.",
+          "tags": [
+            "wound",
+            "measurement",
+            "change"
+          ],
+          "field": "measurement",
+          "value": "3.0 x 2.1 cm"
+        }
+      ]
+    },
+    {
+      "id": "AL-02",
+      "patient_id": "demo-003",
+      "title": "Visit scheduling",
+      "date": "2026-05-09",
+      "kind": "record",
+      "author": "Synthetic scheduling team",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "The home appointment was initially recorded for May 16, 2026 at 9:00 AM.",
+          "tags": [
+            "appointment",
+            "change"
+          ],
+          "field": "appointment",
+          "value": "2026-05-16 09:00"
+        },
+        {
+          "text": "Building access instructions are missing; the coordinator requested a callback.",
+          "tags": [
+            "access",
+            "contact",
+            "barrier"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AL-03",
+      "patient_id": "demo-003",
+      "title": "Updated home visit note",
+      "date": "2026-05-15",
+      "kind": "record",
+      "author": "Synthetic care coordinator",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "The home appointment is now recorded for May 19, 2026 at 2:00 PM, replacing the earlier scheduling entry.",
+          "tags": [
+            "appointment",
+            "change"
+          ],
+          "field": "appointment",
+          "value": "2026-05-19 14:00"
+        },
+        {
+          "text": "Building access instructions were confirmed on May 15; the access task is marked complete.",
+          "tags": [
+            "access"
+          ]
+        },
+        {
+          "text": "The latest recorded measurement is 2.8 cm by 2.0 cm; the sample does not interpret the change.",
+          "tags": [
+            "wound",
+            "measurement",
+            "change"
+          ],
+          "field": "measurement",
+          "value": "2.8 x 2.0 cm"
+        }
+      ]
+    },
+    {
+      "id": "REF-01",
+      "patient_id": null,
+      "title": "Demo record review rules",
+      "date": "2026-05-01",
+      "kind": "reference",
+      "author": "CareContext fixture authors",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "In this fictional workflow, a review note links each extracted statement to its original dated source.",
+          "tags": [
+            "workflow",
+            "source",
+            "review"
+          ]
+        },
+        {
+          "text": "When recorded values differ, the reviewer preserves both dated entries and assigns reconciliation to a human owner.",
+          "tags": [
+            "workflow",
+            "change",
+            "reconciliation"
+          ]
+        },
+        {
+          "text": "A missing record is described as unavailable evidence and is not converted into a negative clinical finding.",
+          "tags": [
+            "workflow",
+            "missing",
+            "evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REF-02",
+      "patient_id": null,
+      "title": "Demo coordination checklist",
+      "date": "2026-05-01",
+      "kind": "reference",
+      "author": "CareContext fixture authors",
+      "synthetic": true,
+      "entries": [
+        {
+          "text": "The fictional scheduling checklist tracks appointment date, contact attempts, transport confirmation, and the owner of each open task.",
+          "tags": [
+            "workflow",
+            "appointment",
+            "contact",
+            "transport"
+          ]
+        },
+        {
+          "text": "The fictional supply checklist tracks request date, supplier reply, delivery confirmation, and the responsible coordinator.",
+          "tags": [
+            "workflow",
+            "supply",
+            "delivery"
+          ]
+        }
+      ]
+    }
+  ]
+}

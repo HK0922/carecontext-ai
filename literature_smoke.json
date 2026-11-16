@@ -1,0 +1,19 @@
+{
+  "query": "diabetic foot ulcer offloading",
+  "executed_query": "(diabetic foot ulcer offloading) AND systematic review[Publication Type] AND (\"2020/01/01\"[Date - Publication] : \"3000\"[Date - Publication])",
+  "retrieved_at": "2026-10-30T16:18:31.295110+00:00",
+  "total_matches": 31,
+  "status": "sources_found",
+  "returned_records": 8,
+  "pmids": [
+    "37226568",
+    "33743791",
+    "33532602",
+    "42820491",
+    "37292021",
+    "31773194",
+    "30963977",
+    "36966316"
+  ],
+  "scope": "Live connectivity and XML parsing smoke check; not clinical validation."
+}
