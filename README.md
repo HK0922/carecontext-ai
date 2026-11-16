@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/assets/carecontext-banner.png" alt="CareContext — Clinical record questions, with inspectable evidence" width="1200"></p>
+<p align="center"><img src="carecontext-banner.png" alt="CareContext — Clinical record questions, with inspectable evidence" width="1200"></p>
 
 # CareContext
 
