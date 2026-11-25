@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 from pathlib import Path
 import uvicorn
 
@@ -10,6 +11,8 @@ def main():
     evaluate=commands.add_parser('evaluate'); evaluate.add_argument('--output',default='evaluations/results.json')
     args=parser.parse_args()
     if args.command=='serve':
+        if os.getenv('CARECONTEXT_RESEARCH_MODE') == '1' and args.host not in {'127.0.0.1', '::1', 'localhost'}:
+            parser.error('Research mode must bind to the loopback interface only.')
         uvicorn.run('carecontext.api:create_app',factory=True,host=args.host,port=args.port,workers=1)
     else:
         from .evaluation import evaluate

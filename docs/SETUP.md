@@ -1,23 +1,23 @@
+> **v0.3:** The new document intelligence Studio is at `/`; the original workspace documented below remains at `/classic`. For the new features see [V0_3.md](V0_3.md). Do not upload real medical records.
+
 # Setup and troubleshooting
 
-Use Python 3.11–3.13. Python 3.12.14 was used locally. The CI matrix is configured for all three versions but has not run on GitHub yet.
+Use Python 3.11–3.15. For a Mac with Homebrew Python 3.14, use `python3.14` to create the virtual environment. This v0.3.1 packaging update was tested on Python 3.13; additional runtimes are covered by the included (not-yet-run) CI matrix. See [START_HERE_MAC.md](../START_HERE_MAC.md).
 
 ## macOS or Linux
 
 ```bash
-python3 -m venv .venv
+python3.14 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.lock
-python -m pip install --no-deps -e .
+python -m pip install -r requirements.txt
 carecontext serve
 ```
 
 ## Windows PowerShell
 
 ```powershell
-py -3.12 -m venv .venv
-.venv\Scripts\python.exe -m pip install -r requirements.lock
-.venv\Scripts\python.exe -m pip install --no-deps -e .
+py -3.14 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
 .venv\Scripts\python.exe -m carecontext.cli serve
 ```
 

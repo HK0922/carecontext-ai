@@ -1,0 +1,4 @@
+# Portable developer installation for Python 3.11-3.15.
+# Versions of direct dependencies are specified in pyproject.toml.
+# pip selects matching platform wheels and transitive dependencies.
+-e .[dev]

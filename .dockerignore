@@ -1,0 +1,24 @@
+.git
+.venv
+.data
+.env
+.env.*
+.pytest_cache
+__pycache__
+*.egg-info
+pip-build-env-*
+pip-ephem-wheel-cache-*
+node_modules
+dist
+build
+output
+.openai
+tests
+docs
+
+# Never copy private or restricted research records into container images.
+data/raw/
+data/derived/
+data/downloads/
+private_data/
+research_exports/

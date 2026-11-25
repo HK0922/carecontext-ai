@@ -8,6 +8,11 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse, Response, FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, ConfigDict
+from .studio_ingest import extract_document, extract_pages, DocumentError, MAX_FILE_BYTES
+from .studio_chat import answer_question, GroundedExplainer
+from .clinical_extract import analyze_pages
+from .research_privacy import assert_research_document_safe, PrivacyBoundaryError
+from .medical_references import MedicalReferences, ReferenceConfig, ReferenceError
 from . import __version__
 from .catalog import Catalog
 from .engine import Engine
@@ -37,6 +42,29 @@ class Verification(StrictModel):
     patient_id: str
     claims: list[Claim] = Field(min_length=1,max_length=12)
 
+
+class StudioSnippet(StrictModel):
+    source_id: str = Field(min_length=3,max_length=40)
+    source_name: str = Field(min_length=1,max_length=90)
+    page: int = Field(ge=1,le=100)
+    text: str = Field(min_length=1,max_length=650)
+
+class StudioTurn(StrictModel):
+    role: Literal['user','assistant']
+    text: str = Field(min_length=1,max_length=1000)
+
+class StudioQuestion(StrictModel):
+    question: str = Field(min_length=3,max_length=480)
+    role: Literal['patient','clinician','researcher'] = 'patient'
+    mode: Literal['local','model'] = 'local'
+    synthetic_ack: bool
+    snippets: list[StudioSnippet] = Field(min_length=1,max_length=160)
+    history: list[StudioTurn] = Field(default_factory=list,max_length=6)
+
+class ResearchLookup(StrictModel):
+    medication_name: str = Field(min_length=3,max_length=60)
+
+
 def create_app(db_path=None, selector=None, literature=None):
     catalog = Catalog()
     if selector is None and os.getenv('OPENAI_API_KEY') and os.getenv('CARECONTEXT_MODEL'):
@@ -46,7 +74,11 @@ def create_app(db_path=None, selector=None, literature=None):
     store = Store(db_path or os.getenv('CARECONTEXT_DB','.data/carecontext.sqlite3'))
     app = FastAPI(title='CareContext',version=__version__,docs_url=None,redoc_url=None,description='Synthetic clinical evidence review. Local demo, not clinical decision support.')
     app.state.engine, app.state.store, app.state.catalog = engine, store, catalog
-    # A same-origin nonce prevents another website from spending the locally configured model key.
+    # Anti-CSRF session header only: not authentication or a security boundary for multi-user hosting.
+    explainer = GroundedExplainer(os.environ['OPENAI_API_KEY'], os.environ['CARECONTEXT_MODEL']) if os.getenv('OPENAI_API_KEY') and os.getenv('CARECONTEXT_MODEL') else None
+    research_enabled = os.getenv('CARECONTEXT_RESEARCH_MODE') == '1'
+    reference_client = MedicalReferences(ReferenceConfig(online=os.getenv('CARECONTEXT_RESEARCH_NETWORK') == '1'))
+    # A same-origin nonce helps prevent cross-origin POST calls to the configured provider.
     nonce = secrets.token_urlsafe(32)
 
     @app.middleware('http')
@@ -61,7 +93,8 @@ def create_app(db_path=None, selector=None, literature=None):
             body = bytearray()
             async for chunk in request.stream():
                 body.extend(chunk)
-                if len(body)>16000: return JSONResponse({'detail':'Request exceeds 16 KB.'},status_code=413)
+                if len(body) > (MAX_FILE_BYTES + 8192 if request.url.path == '/api/studio/ingest' else 125000 if request.url.path == '/api/studio/answer' else 16000):
+                    return JSONResponse({'detail':'Request exceeds the endpoint size limit.'},status_code=413)
             request._body=bytes(body)
         response=await call_next(request)
         response.headers['X-Content-Type-Options']='nosniff'
@@ -145,6 +178,84 @@ def create_app(db_path=None, selector=None, literature=None):
     def evaluations():
         from .evaluation import evaluate
         return evaluate(Engine(catalog))
+
+    @app.get('/api/studio/config')
+    def studio_config():
+        return {'version':__version__,'model_enabled':explainer is not None,
+                'synthetic_only':True,'max_file_bytes':MAX_FILE_BYTES,
+                'allowed_types':['pdf','docx','txt','md','png','jpg','jpeg'],
+                'disclaimer':'Not for real patient information or clinical decisions.'}
+
+    @app.post('/api/studio/ingest')
+    async def studio_ingest(request: Request, name: str):
+        try:
+            return extract_document(name,await request.body())
+        except DocumentError as error:
+            raise HTTPException(422,str(error))
+
+    @app.post('/api/studio/answer')
+    def studio_answer(q: StudioQuestion):
+        if not q.synthetic_ack:
+            raise HTTPException(422,'Only fictional test records are allowed in this preview.')
+        if len({p.source_id for p in q.snippets}) != len(q.snippets):
+            raise HTTPException(422,'Source IDs must be unique.')
+        try:
+            return answer_question(q.question,q.role,[s.model_dump() for s in q.snippets],
+                                   q.mode,explainer,[h.model_dump() for h in q.history])
+        except ProviderError as error:
+            raise HTTPException(502,str(error))
+
+    def research_boundary(request: Request):
+        if not research_enabled:
+            raise HTTPException(403,'Research intake is disabled. Run the local application with CARECONTEXT_RESEARCH_MODE=1.')
+        # TestClient's sentinel hostname is only used for automated tests.
+        if request.client is None or request.client.host not in {'127.0.0.1','::1','testclient'} or request.url.hostname not in {'127.0.0.1','localhost','testserver'}:
+            raise HTTPException(403,'Research mode is only available on a loopback-only local server.')
+
+    @app.get('/api/research/config')
+    def research_config():
+        return {'version':__version__,'enabled':research_enabled,
+                'reference_network_enabled':reference_client.config.online,
+                'external_model_enabled':False,
+                'supported_inputs':['PDF','DOCX','TXT','MD','PNG','JPG'],
+                'data_policy':'Authorized de-identified documents only. Do not upload real identifiable patient records. Screening is not a privacy guarantee.'}
+
+    @app.post('/api/research/analyze')
+    async def research_analyze(request: Request, name: str):
+        research_boundary(request)
+        if request.headers.get('X-CareContext-Data-Class') != 'deidentified' or request.headers.get('X-CareContext-Data-Use') != 'authorized':
+            raise HTTPException(422,'A research-use authorization and de-identification attestation are required.')
+        try:
+            pages,metadata=extract_pages(name,await request.body())
+            assert_research_document_safe(metadata['name'],pages)
+            return analyze_pages(metadata['name'],metadata['sha256'],pages,metadata['extraction'])
+        except (DocumentError,PrivacyBoundaryError) as exc:
+            raise HTTPException(422,str(exc))
+
+    @app.post('/api/research/lookup')
+    def research_lookup(request: Request, lookup: ResearchLookup):
+        research_boundary(request)
+        if request.headers.get('X-CareContext-Term-Only') != '1':
+            raise HTTPException(422,'Only a medication name may be submitted to external references.')
+        if reference_client.config.online and request.headers.get('X-CareContext-Term-Verified') != '1':
+            raise HTTPException(422,'Confirm the medication term contains no identifying information before contacting external references.')
+        try:
+            return reference_client.lookup(lookup.medication_name)
+        except ReferenceError as exc:
+            raise HTTPException(422,str(exc))
+
+    @app.get('/research', include_in_schema=False)
+    def research_page():
+        return FileResponse(Path(__file__).parent/'web/research.html')
+
+    @app.get('/studio',include_in_schema=False)
+    @app.get('/',include_in_schema=False)
+    def studio_page():
+        return FileResponse(Path(__file__).parent/'web/studio.html')
+
+    @app.get('/classic',include_in_schema=False)
+    def original_workspace():
+        return FileResponse(Path(__file__).parent/'web/index.html')
 
     app.mount('/', StaticFiles(directory=Path(__file__).parent/'web',html=True),name='web')
     return app
