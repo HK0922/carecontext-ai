@@ -1,6 +1,23 @@
-<p align="center"><img src="carecontext-banner.png" alt="CareContext — Clinical record questions, with inspectable evidence" width="1200"></p>
+# CareContext-AI · Clinical Intelligence Research Alpha (v0.4.0a1)
+
+**Research milestone A/B — evidence-first clinical document structuring with independently reviewable source spans. Not clinically validated.**
+
+The existing Editorial v0.3.1 Studio remains at `/studio`; the new Clinical Research Lab is at `/research` (disabled by default). The research lab extracts candidate prescription fields, laboratory values and explicitly documented symptom statements from *authorized de-identified* test documents, with optional RxNorm/DailyMed term-only metadata lookups. It does not infer diagnosis, authorize treatment, or enable real-identifiable-patient intake.
+
+**Mac:** `CARECONTEXT_RESEARCH_MODE=1 zsh RUN_ON_MAC.command` → <http://127.0.0.1:8000/research>. To additionally enable official RxNorm/DailyMed term-only lookups, set `CARECONTEXT_RESEARCH_NETWORK=1`. The existing fictional-document Studio runs with ordinary `zsh RUN_ON_MAC.command`.
+
+[Research implementation and limits](docs/CLINICAL_INTELLIGENCE_PHASE1.md) · [Data source registry](data/registry.json) · [Evaluation script](scripts/evaluate_clinical.py) · [Source code](https://github.com/HK0922/carecontext-ai)
+
+**The 85% clinical accuracy goal has not been established.** Tests use author-written fixtures, not independent real prescriptions; model/OCR research remains ongoing. Do not share identifiable patient documents with the public hosted demo or third-party AI services.
+
+---
+
+<p align="center"><img src="docs/assets/carecontext-banner.png" alt="CareContext — Clinical record questions, with inspectable evidence" width="1200"></p>
 
 # CareContext
+
+**Previous: [CareContext v0.3 Studio](docs/V0_3.md)** — fictional-document upload (PDF/DOCX/TXT/MD and optional local image OCR), evidence-first conversation, distinct patient/clinician/researcher views, the off-white Editorial interface, and transparent local-versus-AI explanation modes. The original workspace remains at `/classic`. Real patient information is prohibited in the prototype.
+
 
 **Ask a clinical record a question. Inspect the source before trusting the answer.**
 
@@ -8,9 +25,11 @@ CareContext is a working local evidence-review application built by [Harikrishna
 
 [Get started](#get-started) · [Architecture](docs/ARCHITECTURE.md) · [Evaluation](docs/EVALUATION.md) · [Publish on GitHub](PUBLISHING.md) · [Demo walkthrough](docs/DEMO.md)
 
-**Status:** v0.2.0 · synthetic research prototype · local application · MIT licensed
+**Historical Studio status:** v0.3.1 · synthetic research prototype · local application · MIT licensed
 
-## New in v0.2: Literature workspace
+> **Version note:** This release contains the v0.4.0a1 clinical research alpha, the Synthea extraction corrections, and the original v0.3 Studio. Publishing the source to GitHub does **not** automatically update the hosted preview.
+
+## Previous v0.2: Literature workspace
 
 A question-first research interface inspired by evidence-search products, implemented with an original CareContext design. Search PubMed, filter by study type and year, inspect structured abstracts and linked publication notices, open original sources, and export citation lists. No OpenEvidence content, branding, licensed corpus, or private API is used.
 
@@ -40,25 +59,33 @@ The initial scope is specific: three fictional wound-care coordination cases, 12
 
 **Synthetic data only.** Records and workflow references are author-written fiction, not medical guidelines. The app does not diagnose, prescribe, assess urgency, or connect to an EHR. It has no clinical validation or compliance certification. Do not enter real patient details in questions or review notes. See [Scope and safety](docs/SAFETY.md).
 
+## Studio visual identity — editorial revision
+
+The v0.3 Studio now uses the off-white editorial system in [`docs/EDITORIAL_DESIGN_SYSTEM.md`](docs/EDITORIAL_DESIGN_SYSTEM.md): warm near-black typography, light serif headlines, white cards, hairline dividers, understated primary pills, and ambient pastel gradient orbs. The functional upload / question / citation workflow is unchanged. `/classic` preserves the original v0.2 UI.
+
+![CareContext Editorial v0.3 Studio screenshot](docs/assets/studio-editorial-v03.png)
+
+*Visual from the offline synthetic-data UI preview; not a production clinical interface.*
+
 ## Get started
 
-Requirements: Python 3.11–3.13. Python 3.12 was validated locally. Node.js 22+ is optional, for frontend utility tests. No frontend build or model download is required.
+**Mac VS Code instructions:** [START_HERE_MAC.md](START_HERE_MAC.md). The downloadable ZIP includes an offline HTML preview for design review, but the full Python server is needed for document extraction and API calls.
 
-Download this repository or clone it after publishing:
+
+Requirements: Python 3.11–3.15. For your Mac, use its installed Python 3.14. Python 3.13 was verified for this packaging update; 3.14/3.15 are targeted by CI but have not been executed here. Node.js 22+ is optional for frontend utility tests. No frontend build or model download is required.
+
+For this v0.4 release, open the extracted `carecontext` folder. On macOS, the simplest command is `zsh RUN_ON_MAC.command`; for manual setup:
 
 ```bash
-git clone https://github.com/HK0922/carecontext-ai.git
-cd carecontext
-python -m venv .venv
+python3.14 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.lock
-python -m pip install --no-deps -e .
+python -m pip install -r requirements.txt
 carecontext serve
 ```
 
 On Windows PowerShell, replace activation with `.venv\Scripts\Activate.ps1`. You can also invoke `.venv\Scripts\python.exe -m carecontext.cli serve` after installing with that interpreter.
 
-Open **http://127.0.0.1:8000**. Select Maya Chen and click **What allergy information changed?** Open a numbered citation to compare the original records.
+Open **http://127.0.0.1:8000** for v0.3 Studio or **/classic** for v0.2. Select Maya Chen and click **What allergy information changed?** Open a numbered citation to compare the original records.
 
 The server binds to `127.0.0.1`. Run one server process. Local reviews are stored in `.data/carecontext.sqlite3`, excluded from version control. More instructions: [SETUP.md](docs/SETUP.md).
 

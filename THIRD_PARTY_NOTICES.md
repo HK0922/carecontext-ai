@@ -2,7 +2,7 @@
 
 Application source, synthetic fixtures, documentation, and original CareContext visual assets are released under the repository MIT license.
 
-Runtime and test dependencies are obtained through pip and listed in `requirements.lock`; their licenses remain with their respective authors. The source archive does not bundle their source code or virtual environments. The UI uses system fonts and has no external icon or font assets.
+Runtime and test dependencies are obtained through pip and declared in `pyproject.toml` and installed via `requirements.txt`; their licenses remain with their respective authors. The source archive does not bundle their source code or virtual environments. The UI uses system fonts and has no external icon or font assets.
 
 Primary implementation references:
 

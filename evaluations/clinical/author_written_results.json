@@ -1,0 +1,181 @@
+{
+  "evaluation_type": "synthetic_author_written_regression_not_clinical_validation",
+  "extractor_version": "clinical-extract-0.1",
+  "data_source": "medication_gold.json",
+  "sample_size": 12,
+  "scores": {
+    "document_medication_list_exact": {
+      "correct": 12,
+      "total": 12,
+      "accuracy": 1.0,
+      "wilson_95_ci": [
+        0.7575,
+        1
+      ]
+    },
+    "strength_value": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0,
+      "wilson_95_ci": [
+        0.7225,
+        1.0
+      ]
+    },
+    "unit": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0,
+      "wilson_95_ci": [
+        0.7225,
+        1.0
+      ]
+    },
+    "route": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0,
+      "wilson_95_ci": [
+        0.7225,
+        1.0
+      ]
+    },
+    "frequency": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0,
+      "wilson_95_ci": [
+        0.7225,
+        1.0
+      ]
+    },
+    "duration": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0,
+      "wilson_95_ci": [
+        0.7225,
+        1.0
+      ]
+    }
+  },
+  "examples": [
+    {
+      "id": "simple_metformin",
+      "expected_medication_names": [
+        "metformin"
+      ],
+      "actual_medication_names": [
+        "metformin"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "simple_amoxicillin",
+      "expected_medication_names": [
+        "amoxicillin"
+      ],
+      "actual_medication_names": [
+        "amoxicillin"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "weekly",
+      "expected_medication_names": [
+        "alendronate"
+      ],
+      "actual_medication_names": [
+        "alendronate"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "daily",
+      "expected_medication_names": [
+        "lisinopril"
+      ],
+      "actual_medication_names": [
+        "lisinopril"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "inhaler",
+      "expected_medication_names": [
+        "salbutamol"
+      ],
+      "actual_medication_names": [
+        "salbutamol"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "no_medication",
+      "expected_medication_names": [],
+      "actual_medication_names": [],
+      "names_exact_match": true
+    },
+    {
+      "id": "no_strength",
+      "expected_medication_names": [],
+      "actual_medication_names": [],
+      "names_exact_match": true
+    },
+    {
+      "id": "explicit_indication_separate",
+      "expected_medication_names": [
+        "metformin"
+      ],
+      "actual_medication_names": [
+        "metformin"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "dose_missing",
+      "expected_medication_names": [
+        "aspirin"
+      ],
+      "actual_medication_names": [
+        "aspirin"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "multiline",
+      "expected_medication_names": [
+        "amlodipine",
+        "losartan"
+      ],
+      "actual_medication_names": [
+        "amlodipine",
+        "losartan"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "generic_medicine",
+      "expected_medication_names": [
+        "ibuprofen"
+      ],
+      "actual_medication_names": [
+        "ibuprofen"
+      ],
+      "names_exact_match": true
+    },
+    {
+      "id": "nonmed_numbers",
+      "expected_medication_names": [],
+      "actual_medication_names": [],
+      "names_exact_match": true
+    }
+  ],
+  "limitations": [
+    "No independent clinician annotations",
+    "No handwritten-OCR benchmark",
+    "No external documents",
+    "No dosage safety validation",
+    "No diagnosis inference"
+  ]
+}

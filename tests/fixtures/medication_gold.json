@@ -1,0 +1,17 @@
+{
+  "scope": "AUTHOR-WRITTEN SYNTHETIC REGRESSION EXAMPLES. These are NOT external clinical validation data.",
+  "examples": [
+    {"id":"simple_metformin","text":"Medication: Metformin 500 mg tablet - Take 1 tablet by mouth twice daily for 30 days.","expected":[{"raw_name":"Metformin","strength_value":"500","unit":"mg","route":"oral","frequency":"twice daily","duration":"for 30 days"}]},
+    {"id":"simple_amoxicillin","text":"Rx: Amoxicillin 250 mg capsule - Take 1 capsule orally three times daily for 7 days.","expected":[{"raw_name":"Amoxicillin","strength_value":"250","unit":"mg","route":"oral","frequency":"three times daily","duration":"for 7 days"}]},
+    {"id":"weekly","text":"Drug: Alendronate 70 mg tablet - Take 1 tablet orally weekly.","expected":[{"raw_name":"Alendronate","strength_value":"70","unit":"mg","route":"oral","frequency":"weekly","duration":null}]},
+    {"id":"daily","text":"Prescription: Lisinopril 10 mg tablet - Take 1 tablet by mouth once daily.","expected":[{"raw_name":"Lisinopril","strength_value":"10","unit":"mg","route":"oral","frequency":"once daily","duration":null}]},
+    {"id":"inhaler","text":"Medication: Salbutamol 100 mcg inhaler - Inhale 2 puffs as needed.","expected":[{"raw_name":"Salbutamol","strength_value":"100","unit":"mcg","route":null,"frequency":"as needed","duration":null}]},
+    {"id":"no_medication","text":"Symptoms: no cough.\nGlucose: 90 mg/dL","expected":[]},
+    {"id":"no_strength","text":"Prescription: unknown tablet by mouth daily","expected":[]},
+    {"id":"explicit_indication_separate","text":"Medication: Metformin 500 mg tablet - Take 1 tablet orally daily.\nIndication: Written by author in source document.","expected":[{"raw_name":"Metformin","strength_value":"500","unit":"mg","route":"oral","frequency":"daily","duration":null}]},
+    {"id":"dose_missing","text":"Medication: Aspirin 81 mg tablet orally once daily","expected":[{"raw_name":"Aspirin","strength_value":"81","unit":"mg","route":"oral","frequency":"once daily","duration":null}]},
+    {"id":"multiline","text":"Medication: Losartan 50 mg tablet - Take 1 tablet by mouth twice daily.\nMedication: Amlodipine 5 mg tablet - Take 1 tablet orally once daily.","expected":[{"raw_name":"Losartan","strength_value":"50","unit":"mg","route":"oral","frequency":"twice daily","duration":null},{"raw_name":"Amlodipine","strength_value":"5","unit":"mg","route":"oral","frequency":"once daily","duration":null}]},
+    {"id":"generic_medicine","text":"Drug: Ibuprofen 200 mg tablet - Take 1 tablet by mouth as needed.","expected":[{"raw_name":"Ibuprofen","strength_value":"200","unit":"mg","route":"oral","frequency":"as needed","duration":null}]},
+    {"id":"nonmed_numbers","text":"Patient height 170 cm and weight 72 kg.\nHemoglobin: 13.2 g/dL","expected":[]}
+  ]
+}

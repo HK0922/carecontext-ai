@@ -24,7 +24,7 @@ The model adapter is tested through `httpx.MockTransport`. No paid provider call
 ## Verification limits
 
 - The suite is small, author-written, and bundled with the development corpus. It is not held-out or independently clinically annotated.
-- Only Python 3.12.14 was exercised locally. CI is configured for 3.11, 3.12, and 3.13 but has not run on GitHub yet.
+- For v0.3.1, Python 3.13 tests were exercised locally. CI now targets 3.11, 3.12, 3.13, 3.14 and 3.15 but has not run on GitHub yet. Refreshed dependencies have not been installed in the offline authoring environment.
 - Live model selection and Docker execution were not exercised.
 - The managed preview daemon was unavailable. Browser interaction, visual layout, and assistive-technology behavior remain unverified. Node tests are utility checks, not browser tests.
 - Rule-based request filtering is incomplete. Exact excerpts can still be outdated, clinically wrong, or irrelevant to part of a question.

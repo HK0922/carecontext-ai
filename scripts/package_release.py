@@ -6,10 +6,10 @@ import json
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-DIRS={'carecontext','tests','docs','scripts','evaluations','.github'}
-FILES={'README.md','PUBLISHING.md','LICENSE','CONTRIBUTING.md','SECURITY.md','CHANGELOG.md','THIRD_PARTY_NOTICES.md','AGENTS.md',
-       'pyproject.toml','requirements.lock','package.json','Dockerfile','compose.yaml','.dockerignore','.gitignore','.env.example'}
-EXTENSIONS={'.py','.js','.mjs','.css','.html','.svg','.png','.json','.md','.yml','.yaml'}
+DIRS={'carecontext','tests','docs','scripts','evaluations','.github','data'}
+FILES={'README.md','GITHUB_V03_RELEASE.md','PUBLISHING.md','LICENSE','CONTRIBUTING.md','SECURITY.md','CHANGELOG.md','THIRD_PARTY_NOTICES.md','AGENTS.md',
+       'pyproject.toml','requirements.txt','.python-version','RUN_ON_MAC.command','START_HERE_MAC.md','DEPENDENCY_NOTES.md','OFFLINE_PREVIEW.html','package.json','Dockerfile','compose.yaml','.dockerignore','.gitignore','.env.example'}
+EXTENSIONS={'.py','.js','.mjs','.css','.html','.svg','.png','.pdf','.json','.md','.yml','.yaml'}
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output',default='../CareContext_GitHub_Ready.zip');a=p.parse_args()
@@ -25,9 +25,9 @@ def main():
     dest=Path(a.output).resolve();dest.parent.mkdir(parents=True,exist_ok=True)
     with zipfile.ZipFile(dest,'w',zipfile.ZIP_DEFLATED) as z:
         for path in files:
-            info=zipfile.ZipInfo('carecontext/'+str(path.relative_to(ROOT)),date_time=(2026,10,30,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o644<<16
+            info=zipfile.ZipInfo('carecontext/'+str(path.relative_to(ROOT)),date_time=(2026,11,24,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=(0o755 if path.suffix == '.command' else 0o644)<<16
             z.writestr(info,path.read_bytes())
-        info=zipfile.ZipInfo('carecontext/SOURCE_MANIFEST.json',date_time=(2026,10,30,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED
+        info=zipfile.ZipInfo('carecontext/SOURCE_MANIFEST.json',date_time=(2026,11,24,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED
         z.writestr(info,json.dumps(manifest,indent=2)+'\n')
     with zipfile.ZipFile(dest) as z:
         assert z.testzip() is None

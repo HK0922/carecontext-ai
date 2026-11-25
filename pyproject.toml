@@ -4,16 +4,17 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "carecontext"
-version = "0.2.0"
-description = "An evidence-first clinical record review prototype using synthetic cases"
+version = "0.4.0a1"
+description = "Evidence-first local research alpha for de-identified clinical document extraction"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.16"
 license = "MIT"
 authors = [{name = "Harikrishna Trivedi"}]
-dependencies = ["fastapi==0.162.0", "uvicorn==0.54.0", "httpx[socks]==0.28.1"]
+dependencies = ["fastapi==0.165.0", "uvicorn==0.54.0", "httpx[socks]==0.28.1", "pydantic==2.14.4", "pypdf==7.1.1"]
 
 [project.optional-dependencies]
 dev = ["pytest==9.2.0"]
+ocr = ["Pillow>=11", "pytesseract>=0.3"]
 
 [project.scripts]
 carecontext = "carecontext.cli:main"

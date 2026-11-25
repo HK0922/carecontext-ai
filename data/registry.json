@@ -1,0 +1,150 @@
+{
+  "registry_version": "2026-11-24-research-alpha",
+  "policy": "Public code may include only author-written synthetic fixtures and manifest entries. Restricted or incompatible raw datasets must never be committed or packaged.",
+  "sources": [
+    {
+      "id": "rxnorm_api",
+      "kind": "authoritative_reference",
+      "source": "U.S. National Library of Medicine RxNorm",
+      "url": "https://lhncbc.nlm.nih.gov/RxNav/APIs/RxNormAPIs.html",
+      "access": "public API for RxNorm-native results; terms apply",
+      "automated_download": "API name-only queries, opt-in",
+      "redistribute": false,
+      "purpose": "Candidate medication identity normalization; not patient diagnosis",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "dailymed_spl",
+      "kind": "authoritative_reference",
+      "source": "National Library of Medicine DailyMed SPL",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/webservices-help/v2/spls_api.cfm",
+      "access": "public API; verify label licensing and version before reuse",
+      "automated_download": "metadata only, opt-in",
+      "redistribute": false,
+      "purpose": "Label source metadata and official links; later section-level evidence",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "loinc",
+      "kind": "terminology",
+      "source": "LOINC (Regenstrief)",
+      "url": "https://loinc.org/downloads/",
+      "access": "account registration and license agreement",
+      "automated_download": "manual authorization required",
+      "redistribute": false,
+      "purpose": "Laboratory observation identifiers",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "ucum",
+      "kind": "terminology",
+      "source": "UCUM",
+      "url": "https://ucum.org/ucum",
+      "access": "published license; observe conditions",
+      "automated_download": "not yet implemented",
+      "redistribute": false,
+      "purpose": "Medical unit normalization",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "pubmed",
+      "kind": "authoritative_reference",
+      "source": "PubMed NCBI E-utilities",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK25501/",
+      "access": "public metadata API; NCBI request limits apply",
+      "automated_download": "existing literature API only",
+      "redistribute": false,
+      "purpose": "Literature metadata and original links; not unlicensed full-text storage",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "pmc_oa",
+      "kind": "literature_corpus",
+      "source": "PMC Open Access Subset",
+      "url": "https://pmc.ncbi.nlm.nih.gov/tools/openftlist/",
+      "access": "article-specific reuse licenses; approved bulk retrieval channels only",
+      "automated_download": "requires filtering license; not implemented",
+      "redistribute": false,
+      "purpose": "future licensed full-text retrieval",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "rxhandbd",
+      "kind": "development_or_evaluation",
+      "source": "RxHandBD",
+      "url": "https://zenodo.org/records/18478741",
+      "access": "check exact dataset version and CC BY 4.0 conditions",
+      "automated_download": "manual until version/license verified",
+      "redistribute": false,
+      "purpose": "word-crop handwriting OCR, not whole-prescription clinical validity",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "mimiciv",
+      "kind": "restricted_evaluation",
+      "source": "MIMIC-IV / PhysioNet",
+      "url": "https://physionet.org/content/mimiciv/",
+      "access": "credentialed user; training, DUA, project approval",
+      "automated_download": "blocked pending independent authorization",
+      "redistribute": false,
+      "purpose": "de-identified clinical research evaluation, not representative outpatient handwritten prescriptions",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "n2c2",
+      "kind": "restricted_evaluation",
+      "source": "National NLP Clinical Challenges",
+      "url": "https://n2c2.dbmi.hms.harvard.edu/data-sets",
+      "access": "individual registration, appropriate DUA",
+      "automated_download": "blocked pending independent authorization",
+      "redistribute": false,
+      "purpose": "medication extraction and concept benchmarks",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "bhcp_doc",
+      "kind": "restricted_evaluation",
+      "source": "BHCP-DOC",
+      "url": "https://l3i-share.univ-lr.fr/2025BHCP-DOC/",
+      "access": "request academic access; non-commercial use conditions",
+      "automated_download": "blocked pending written permission",
+      "redistribute": false,
+      "purpose": "English/Urdu handwritten prescription OCR; not universally representative",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "medlineplus",
+      "kind": "reference_links_only",
+      "source": "MedlinePlus Connect",
+      "url": "https://medlineplus.gov/medlineplus-connect/",
+      "access": "consumer drug text may require separate license from ASHP",
+      "automated_download": "no ingestion",
+      "redistribute": false,
+      "purpose": "patient-facing external source links only",
+      "local_path": null,
+      "checksum": null
+    },
+    {
+      "id": "clinical_baseline_fixtures",
+      "kind": "development_fixture",
+      "source": "Author-written synthetic examples",
+      "url": null,
+      "access": "original project fixture, freely redistributable with CareContext",
+      "automated_download": "bundled",
+      "redistribute": true,
+      "purpose": "test contracts and regression behavior only, NOT independent clinical accuracy",
+      "local_path": "tests/fixtures/medication_gold.json",
+      "checksum": "41c3aa9cd3f0d21cf118e2409d89bcede1c5555a2866579ddc9bbab63ea10b64"
+    }
+  ]
+}

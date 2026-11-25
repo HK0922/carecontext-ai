@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f5f5">
+  <meta name="description" content="CareContext Studio v0.3 — synthetic clinical document exploration with grounded evidence, citations and a transparent AI mode.">
+  <title>CareContext — Evidence, in context.</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/studio.css">
+  <script src="/studio.js" type="module"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="layout">
+  <header class="side-nav" aria-label="Primary navigation">
+    <a class="brand" href="#overview" aria-label="CareContext home"><span class="brand-mark">c<span>.</span></span><span class="brand-copy">CareContext<small>Evidence, in context.</small></span></a>
+    <nav class="side-links" id="primary-links" aria-label="Studio sections">
+      <a href="#overview" class="side-link active" data-nav="overview">Overview</a>
+      <a href="#documents" class="side-link" data-nav="documents">Documents</a>
+      <a href="#conversation" class="side-link" data-nav="conversation">Conversation</a>
+      <a href="#inspector" class="side-link" data-nav="inspector">Sources</a>
+    </nav>
+    <a class="nav-source" href="https://github.com/HK0922/carecontext-ai" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+    <button id="nav-toggle" class="nav-toggle" type="button" aria-controls="primary-links" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
+  </header>
+  <div class="app-area">
+    <header class="topbar"><div class="breadcrumb">AN OPEN-SOURCE RESEARCH EXPERIMENT <span>/</span> <b>STUDIO 0.3</b></div><div class="top-actions"><label class="mobile-role">VIEW <select id="mobile-role" aria-label="Audience perspective"><option value="patient">Patient</option><option value="clinician">Clinician</option><option value="researcher">Researcher</option></select></label><span class="online-indicator"><i></i> LOCAL SERVICE</span><a class="github-link" href="/research" aria-label="Open local clinical research workspace">Clinical Research Lab ↗</a> <a class="github-link" href="/classic">Classic ↗</a></div></header>
+    <main id="main">
+      <section class="hero" id="overview" aria-labelledby="hero-title">
+        <div class="hero-content"><div class="eyebrow"><span class="eyebrow-mark"></span> INTRODUCING THE DOCUMENT INTELLIGENCE STUDIO <span class="line"></span> VERSION 0.3</div>
+          <h1 id="hero-title">Make sense of the record.<br><em>Keep the evidence.</em></h1>
+          <p>A more thoughtful way to explore complex documents. Ask in plain language, uncover the original passage, and follow the evidence all the way back to its source.</p>
+          <div class="hero-ctas"><a class="primary-cta" href="#documents">Explore the studio <span>↗</span></a><a class="quiet-cta" href="#inspector">How it works <span>↗</span></a></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="atmosphere atmosphere-mint"></div><div class="atmosphere atmosphere-peach"></div><div class="atmosphere atmosphere-lavender"></div><div class="atmosphere atmosphere-sky"></div>
+          <div class="art-document"><span class="art-overline">ANATOMY OF AN ANSWER</span><div class="art-accent-line"></div><div class="art-lines"><i></i><i></i><i></i></div><div class="art-source">01 <span>Find the passage</span><strong>↗</strong></div><div class="art-source">02 <span>Read the context</span><strong>↗</strong></div><div class="art-source">03 <span>Make your own judgment</span><strong>↗</strong></div><div class="art-foot">EVIDENCE ISN'T A FOOTNOTE.<br>IT'S THE FOUNDATION.</div></div>
+        </div>
+      </section>
+      <section class="status-strip" aria-label="Product status"><div><span class="metric-number" id="doc-count">00</span><span>DOCUMENTS IN MEMORY</span></div><div><span class="metric-number" id="passage-count">00</span><span>INSPECTABLE EXCERPTS</span></div><div><span class="metric-number" id="turn-count">00</span><span>CONVERSATION TURNS</span></div><div class="status-privacy"><span class="status-icon">◈</span><div><strong>FICTIONAL DATA ONLY</strong><span>Not for clinical decisions or patient records</span></div></div></section>
+      <section class="workspace-section" aria-labelledby="workspace-title"><div class="section-intro"><div><span class="section-number">01 / WORKSPACE</span><h2 id="workspace-title">Your questions.<br><em>Better context.</em></h2></div><p>Upload and inspect without losing the original wording. Every supporting excerpt has an address. Every AI draft is labeled as such.</p></div>
+        <div class="audience-strip" aria-label="Audience perspectives"><div class="audience-intro"><span class="mini-label">CHOOSE YOUR PERSPECTIVE</span><p>Three ways to read. One source of truth.</p></div><fieldset class="role-list" aria-label="Choose your audience perspective">
+      <label class="role-option selected"><input type="radio" name="role" value="patient" checked><span class="role-symbol">P</span><span>Patient<small>Plain-language context</small></span><span class="role-tick">✓</span></label>
+      <label class="role-option"><input type="radio" name="role" value="clinician"><span class="role-symbol">C</span><span>Clinician<small>Record-level evidence</small></span><span class="role-tick">✓</span></label>
+      <label class="role-option"><input type="radio" name="role" value="researcher"><span class="role-symbol">R</span><span>Researcher<small>Trace &amp; provenance</small></span><span class="role-tick">✓</span></label>
+    </fieldset></div><div class="studio-grid">
+          <section class="doc-panel" id="documents" aria-labelledby="docs-title">
+            <div class="panel-heading"><div><span class="panel-index">INPUT / 01</span><h3 id="docs-title">Your documents</h3></div><span class="panel-indicator"><i></i> LOCAL EXTRACTION</span></div>
+            <p class="panel-deck">Your records are the starting point—not a prediction. Add fictional test documents or open the supplied sample.</p>
+            <label class="ack-row"><input id="synthetic-ack" type="checkbox"><span>I confirm these are <strong>fictional test documents</strong>, not real patient records or identifying information.</span></label>
+            <div class="dropzone" id="dropzone" role="group" aria-label="Upload a fictional document"><div class="drop-icon">↥</div><strong>Start with a document.</strong><p>Choose a fictional document or drag it into this space.</p><label class="upload-button" for="upload-input">Choose a file <span aria-hidden="true">↗</span></label><input id="upload-input" type="file" accept=".pdf,.docx,.txt,.md,.png,.jpg,.jpeg" multiple hidden><span class="file-formats">PDF · DOCX · TXT · MD · PNG/JPG (OPTIONAL LOCAL OCR) <br> MAX 3MB PER FILE · 4 FILES / SESSION</span></div>
+            <div class="sample-row"><div><strong>Want to try it first?</strong><span>Start with our fictional care note.</span></div><div class="sample-links"><button id="load-sample" type="button">Load sample ↗</button><a href="/fictional_lab_sample.pdf" download>Sample PDF ↓</a></div></div>
+            <div class="doc-list-head"><span>ACTIVE DOCUMENTS</span><button type="button" id="clear-session">Clear session ×</button></div>
+            <div id="document-list" class="document-list"><div class="empty-documents">Your documents will appear here.</div></div>
+            <div class="privacy-note"><span class="privacy-icon">⌁</span><div><strong>Privacy boundary</strong><p>Local demo service. Extracted text is returned to this tab and kept in memory. AI mode, if enabled, sends selected passages to an external provider. Do not use real records.</p></div></div>
+          </section>
+          <section class="conversation-panel" id="conversation" aria-labelledby="conversation-title">
+            <div class="panel-heading conversation-heading"><div><span class="panel-index">EXPLORE / 02</span><h3 id="conversation-title">Ask & explore</h3></div><div class="active-mode" id="model-status">LOCAL / NO MODEL</div></div>
+            <div class="mode-select" role="group" aria-label="Answer generation mode"><button class="mode-choice selected" data-mode="local" aria-pressed="true"><span>◈</span> Local evidence <small>Exact source passages</small></button><button class="mode-choice" data-mode="model" aria-pressed="false" disabled><span>✧</span> AI explanation <small>Server-side, citation-checked</small></button></div>
+            <div id="chat-log" class="chat-log" aria-live="polite"><div class="assistant-welcome"><div class="welcome-logo">C↗</div><span class="welcome-eyebrow">YOUR EVIDENCE COPILOT</span><h4>Start with a question.<br><em>Finish with a source.</em></h4><p>Add a fictional document. I'll surface matching excerpts with document and page references. If an AI model is configured, you can request a clearly labeled explanation.</p><div class="welcome-steps"><span>01 · Import</span><span>02 · Ask</span><span>03 · Verify</span></div></div></div>
+            <div class="composer-wrap"><div class="suggestion-list" id="suggestion-list"><button type="button" data-prompt="What allergy information is documented?">Allergy changes ↗</button><button type="button" data-prompt="What follow-up plan is documented?">Follow-up plan ↗</button></div><form id="question-form"><label class="sr-only" for="question-input">Ask a question about the fictional document</label><textarea id="question-input" rows="2" minlength="3" maxlength="480" placeholder="Ask what the source documents, not what you should do…"></textarea><div class="compose-footer"><span><span class="pulse-dot"></span> <span id="role-label">PATIENT PERSPECTIVE</span> <span class="compose-hint">· ENTER to send</span></span><button type="submit" id="send-button">Ask evidence <span>↗</span></button></div></form></div>
+          </section>
+        </div>
+      </section>
+      <section class="inspector-section" id="inspector" aria-labelledby="inspect-title"><div class="section-intro inspector-intro"><div><span class="section-number">02 / SOURCE INSPECTION</span><h2 id="inspect-title">Go beyond the answer.<br><em>Find the original.</em></h2></div><p>The evidence panel exposes the exact input passage and lexical retrieval trace. Citation presence is not a medical accuracy guarantee.</p></div>
+        <div class="inspector-grid"><div class="source-reader"><div class="reader-bar"><div><span class="reader-dots"><i></i><i></i><i></i></span> SOURCE_INSPECTOR / VERIFIED ADDRESS</div><span id="reader-id">NO SELECTION</span></div><div id="source-display" class="source-display"><div class="source-empty"><span>⌗</span><h3>Every answer has a source.</h3><p>Choose a numbered citation from an answer to see its original excerpt, file and page.</p></div></div></div><aside class="trace-panel"><span class="panel-index">RETRIEVAL TRACE</span><h3>Under the hood.</h3><p>Scores show text relevance, not medical confidence. The model cannot replace source verification.</p><div id="trace-list"><div class="trace-empty">Run a document question to see ranked evidence.</div></div><button id="export-session" type="button" class="export-button">Export this session (.json) ↓</button></aside></div>
+      </section>
+      <section class="bottom-callout"><div class="bottom-left"><span>MADE FOR THE CURIOUS MIND</span><h2>Not just an answer.<br><em>A way to see why.</em></h2></div><div class="bottom-right"><p>CareContext is an open-source research experiment—not a medical device, a diagnosis engine, or a safe destination for private patient records. Its purpose is to make the evidence trail visible.</p><a href="https://github.com/HK0922/carecontext-ai" target="_blank" rel="noopener noreferrer">Explore the implementation ↗</a></div></section>
+      <footer><span>CARECTXT / AN INDEPENDENT PROJECT BY HARIKRISHNA TRIVEDI</span><span>V0.3 / OPEN-SOURCE RESEARCH PROTOTYPE</span><span>DESIGNED FOR INSPECTABLE EVIDENCE</span></footer>
+    </main>
+  </div>
+</div>
+<div id="toast" class="toast" hidden role="status"></div>
+</body></html>
